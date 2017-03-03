@@ -47,7 +47,7 @@ This file create an InteractiveConsole instance, which provides:
 Some ideas borrowed from:
   * http://eseth.org/2008/pimping-pythonrc.html
     (which co-incidentally reused something I wrote back in 2005 !! Ain't
-     sharing great ?)
+     sharing great ?
   * http://igotgenes.blogspot.in/2009/01/tab-completion-and-history-in-python.html
 
 If you have any other good ideas please feel free to leave a comment.
@@ -56,6 +56,20 @@ If you have any other good ideas please feel free to leave a comment.
 however it does not do pathname completion
 """
 
+import sys
+
+# If running IPython, quit
+def in_ipython():
+        try:
+            __IPYTHON__
+        except NameError:
+            return False
+        else:
+            return True
+
+if in_ipython():
+    sys.exit()
+    
 try:
     import builtins
 except ImportError:
@@ -71,7 +85,6 @@ import readline
 import rlcompleter
 import signal
 import subprocess
-import sys
 
 from code import InteractiveConsole
 from collections import namedtuple
